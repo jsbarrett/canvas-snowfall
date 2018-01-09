@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+  <script>
+    const snow = []
+    const snowsizes = { min: 5, max: 30 }
+    const screensize = { width: 800, height: 600 }
+
+    function setup() {
+      createCanvas(screensize.width, screensize.height)
+
+      for (let i=0; i<100; i+=1) {
+        snow.push(new Snowflake())
+      }
+    }
+    function draw() {
+      background(0)
+      for (const flake of snow) {
+        flake.render()
+      }
+    }
+
+    class Snowflake {
+      constructor() {
+        this.x = random(screensize.width)
+        this.y = random(screensize.height) * -1
+        this.vel = {
+          x: 0,
+          y: 1
+        }
+        this.acc = {
+          x: 0.01,
+          y: 0
+        }
+        this.size = random(snowsizes.min, snowsizes.max)
+      }
+      update() {
+        if (this.y >=0 ) {
+          this.acc.y = 0.01
+          this.vel.y += this.acc.y * this.size * this.size / 100
+        }
+        this.vel.x += (this.vel.x < 5) ? this.acc.x : 0
+        this.x += this.vel.x
+        this.y += this.vel.y
+
+        if (this.x > screensize.width + this.size) {
+          this.x = -this.size
+          this.vel.x = 1
+        }
+
+        if (this.y > 600 + this.size)
+          this.reset()
+      }
+      reset() {
+        this.x = random(screensize.width)
+        this.y = random(50) * -1
+        this.size = (random(1) > 0.7)
+          ? random(snowsizes.min, snowsizes.max)
+          : random(snowsizes.min, snowsizes.max * 0.4)
+        this.vel.y = 1
+        this.vel.x = 0
+      }
+      render() {
+        this.update()
+        stroke(255)
+        strokeWeight(this.size)
+        point(this.x,this.y)
+      }
+    }
+  </script>
+</body>
+</html>
