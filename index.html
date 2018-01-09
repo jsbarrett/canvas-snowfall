@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
   <script>
     const snow = []
     const snowsizes = { min: 5, max: 30 }
-    const screensize = { width: 800, height: 600 }
+    const screensize = { width: 1200, height: 800 }
 
     function setup() {
       createCanvas(screensize.width, screensize.height)
@@ -53,7 +63,7 @@
           this.vel.x = 1
         }
 
-        if (this.y > 600 + this.size)
+        if (this.y > screensize.height + this.size)
           this.reset()
       }
       reset() {
