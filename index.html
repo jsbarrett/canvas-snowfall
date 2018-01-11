@@ -11,6 +11,10 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background-color: lightsteelblue;
+    }
+    canvas {
+      box-shadow: 0 0 12px 0 rgba(0,0,0,0.5);
     }
   </style>
 </head>
@@ -29,7 +33,7 @@
       }
     }
     function draw() {
-      background(0)
+      background(25,25,112)
       for (const flake of snow) {
         flake.render()
       }
